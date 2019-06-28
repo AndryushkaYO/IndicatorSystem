@@ -1,0 +1,107 @@
+﻿
+@model List<List<string>>
+@{ Layout = "_Layout";}
+<div id="assets">
+
+
+    <div class="header">
+        <h2>Infographics</h2>
+        <div class="buttons-nav">
+            <a id="infographics" class="btn btn-info" asp-area="" asp-controller="Catalog" asp-action="Index">  Back to catalog</a>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="buttons-nav-date ">
+            <p class="btn btn-success ">Choose first date</p>
+            <input type="date" class="form-control" name="name" value="" id="firstDate" />
+            <p class="btn btn-success ">Choose second date</p>
+            <input type="date" class="form-control" name="name" value="" id="lastDate" />
+        </div>
+    </div>
+    <div class="row select-info">
+        <div>
+            <p class="btn btn-warning "> Select user</p>
+            <select name="select" class="form-control ">
+                <option value="Name" selected>All</option>
+                @foreach (var i in Model[0])
+                {
+                    <option value="@i">@i</option>
+                }
+
+            </select>
+        </div>
+        <p>or</p>
+        <div>
+            <p class="btn btn-warning ">Select Worker</p>
+            <select name="select" class="form-control">
+                <option value="Name" selected>All</option>
+                @foreach (var i in Model[1])
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+
+
+    <hr />
+    <a class="btn btn-danger " id="run">Show infographics</a>
+    <hr />
+    <div id="info-result">
+
+    </div>
+</div>
+<script>
+
+    var id = '#' + document.getElementById('assets').childNodes[7].id;
+    var i = document.getElementById('assets');
+    let showInfo = document.getElementById('run');
+    
+    showInfo.onclick = function () {
+        let go = true;
+        let re = i.childNodes[3].childNodes[1].childNodes[3].value + '*'
+            + i.childNodes[3].childNodes[1].childNodes[7].value + '*' +
+            i.childNodes[5].childNodes[1].childNodes[3].value + '*' +
+            i.childNodes[5].childNodes[5].childNodes[3].value;
+        let startdate = new Date(2019, 02, 8);
+        let endDate =  Date.now();
+        let date1 = new Date(i.childNodes[3].childNodes[1].childNodes[3].value);
+        let date2 = new Date(i.childNodes[3].childNodes[1].childNodes[7].value);
+        var value = { value: re };
+        if (date1 < startdate)   {
+            go = false;
+            alertify.error('Your first date is too early!!!');
+            //alertify.error(startdate.toString() + '   ' + date1.toString());
+        }else if (date2 > endDate) {
+            go = false;
+            alertify.error('Your secound date is greater than TODAY!!!');
+        } else {
+            go = true;
+        }
+        if (go) {
+            ShowInfographics(value);
+        }
+    };
+    let infoWrite = '#' + document.getElementById('info-result').id;
+    function ShowInfographics(filters) {
+        $('#info-result').html('<img src="https://i.gifer.com/7plQ.gif" class="center" alt="Alternate Text" />');
+        $.ajax({
+            url: '/Catalog/InfographicsPartial',
+            type: 'POST',
+            cache: false,
+            async: true,
+            dataType: "html",
+            beforeSend: function () {
+                $('#info-result').html('<img src="https://i.gifer.com/7plQ.gif" class="center" alt="Alternate Text" />');
+            },
+            data: filters
+        })
+            .done(function (result) {
+                $('#info-result').html(result);
+
+            }).fail(function (xhr) {
+                console.log('error : ' + xhr.status + ' - ' + xhr.statusText + ' - ' + xhr.responseText);
+            });
+
+    }
+</script>

@@ -1,0 +1,442 @@
+﻿@model IndicatorSystem.Models.Catalog.InfographicsData
+<div style="width:80%;">
+    <canvas id="canvas"></canvas>
+    <canvas id="canvas2"></canvas>
+    <canvas id="canvas3"></canvas>
+    <div id="chartinfo" style="display:none;">
+        <p>@Model.chartList[0].Key</p>
+        <p>@Model.chartList[0].Value[0]</p>
+        <p>@Model.chartList[0].Value[1]</p>
+        <p>@Model.chartList[0].Value[2]</p>
+
+        <p>@Model.chartList[1].Key</p>
+        <p>@Model.chartList[1].Value[0]</p>
+        <p>@Model.chartList[1].Value[1]</p>
+        <p>@Model.chartList[1].Value[2]</p>
+
+        <p>@Model.chartList[2].Key</p>
+        <p>@Model.chartList[2].Value[0]</p>
+        <p>@Model.chartList[2].Value[1]</p>
+        <p>@Model.chartList[2].Value[2]</p>
+
+        <p>@Model.chartList[3].Key</p>
+        <p>@Model.chartList[3].Value[0]</p>
+        <p>@Model.chartList[3].Value[1]</p>
+        <p>@Model.chartList[3].Value[2]</p>
+
+        <p>@Model.chartList[4].Key</p>
+        <p>@Model.chartList[4].Value[0]</p>
+        <p>@Model.chartList[4].Value[1]</p>
+        <p>@Model.chartList[4].Value[2]</p>
+
+    </div>
+
+</div>
+<h3 class="text-center">Workers' Infographics</h3>
+<div class="workers-info">
+    <p> <img class="like" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-up-Like-Hand-Approve-512.png" alt="Lice icon" />
+    Worker(s) with the <b>GREATEST</b> amount sent indicators: </p>
+    <table class="table table-condensed" style="margin-left:10%;">
+        <tbody>
+            @foreach (var asset in Model.workersGreat)
+            {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key.FullName</td>
+                    <td width="30%">@asset.Value indicators.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p><img class="dislike" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-Down-Dislike-Hand-256.png" alt="dislike icon" />
+    Worker(s) with the <b>SMALLEST</b> amount sent indicators: </p>
+    <table class="table table-condensed" style="margin-left:10%;">
+        <tbody>
+            @foreach (var asset in Model.workersSmall)
+            {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key.FullName</td>
+                    <td width="30%">@asset.Value indicators.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>Average amount of sent indicators : <span><b>@Model.averWorkersIndex.ToString("0.##")</b></span></p>
+
+    <div id="more-workersTable" style="display:none;">
+        <table class="table table-condensed" style="margin-left:10%;">
+            <p style="text-align:center; font-weight:600;">All workers' indicators amount sorted table</p>
+            <tbody>
+                @foreach (var asset in Model.workersAll)
+                {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key.FullName</td>
+                    <td width="30%">@asset.Value indicators.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <p class="btn btn-warning show-more-btn" id="more-workers" >Show more</p>
+</div>
+<h3 class="text-center">Users' Infographics</h3>
+<div class="users-info">
+    <div class="row text-center" style="padding: 2vh 0;">
+        <div class="col-md-4">
+            <p style="color:aqua" class="aver">@Model.averWater.ToString("0.#")</p>
+            <p> WATER</p>
+        </div>
+        <div class="col-md-4">
+            <p style="color:indianred" class="aver">@Model.averGas.ToString("0.#")</p>
+            <p>GAS</p>
+        </div>
+        <div class="col-md-4">
+            <p style="color:gold" class="aver">@Model.averElectricity.ToString("0.#")</p>
+            <p>ELECTRICITY</p>
+        </div>
+    </div>
+    <p>
+        <img class="like" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-up-Like-Hand-Approve-512.png" alt="Lice icon" />
+        Users(s) with the <b>GREATEST</b> amount of used Water:
+    </p>
+    <table class="table table-condensed" style="margin-left:10%;">
+        <tbody>
+            @foreach (var asset in Model.userWaterGreat)
+            {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key</td>
+                    <td width="30%">@asset.Value m<sup>3</sup>.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <img class="dislike" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-Down-Dislike-Hand-256.png" alt="dislike icon" />
+        Users(s) with the <b>SMALLEST</b> amount of used Water:
+    </p>
+    <table class="table table-condensed" style="margin-left:10%;">
+        <tbody>
+            @foreach (var asset in Model.userWaterSmall)
+            {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key</td>
+                    <td width="30%">@asset.Value m<sup>3</sup>.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div id="more-w-usersTable" style="display:none;">
+        <table class="table table-condensed" style="margin-left:10%;">
+            <p style="text-align:center; font-weight:600;">Sorted table of users by the amount of used water</p>
+            <tbody>
+                @foreach (var asset in Model.userWaterAll)
+                {
+                    <tr class="assetRow">
+                        <td width="50%">@asset.Key</td>
+                        <td width="30%">@asset.Value m<sup>3</sup>.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p class="btn btn-warning show-more-btn" id="more-w-users">Show more</p>
+    <p>
+        <img class="like" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-up-Like-Hand-Approve-512.png" alt="Lice icon" />
+        Users(s) with the <b>GREATEST</b> amount of used Gas:
+    </p>
+    <table class="table table-condensed" style="margin-left:10%;">
+        <tbody>
+            @foreach (var asset in Model.userGasGreat)
+            {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key</td>
+                    <td width="30%">@asset.Value m<sup>3</sup>.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <img class="dislike" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-Down-Dislike-Hand-256.png" alt="dislike icon" />
+        Users(s) with the <b>SMALLEST</b> amount of used Gas:
+    </p>
+    <table class="table table-condensed" style="margin-left:10%;">
+        <tbody>
+            @foreach (var asset in Model.userGasSmall)
+            {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key</td>
+                    <td width="30%">@asset.Value m<sup>3</sup>.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    <div id="more-g-usersTable" style="display:none;">
+        <table class="table table-condensed" style="margin-left:10%;">
+            <p style="text-align:center; font-weight:600;">Sorted table of users by the amount of used gas</p>
+            <tbody>
+                @foreach (var asset in Model.userGasAll)
+                {
+                    <tr class="assetRow">
+                        <td width="50%">@asset.Key</td>
+                        <td width="30%">@asset.Value m<sup>3</sup>.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p class="btn btn-warning show-more-btn" id="more-g-users">Show more</p>
+    <p>
+        <img class="like" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-up-Like-Hand-Approve-512.png" alt="Lice icon" />
+        Users(s) with the <b>GREATEST</b> amount of used Electricity:
+    </p>
+    <table class="table table-condensed" style="margin-left:10%;">
+        <tbody>
+            @foreach (var asset in Model.userElectricityGreat)
+            {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key</td>
+                    <td width="30%">@asset.Value kWh.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <img class="dislike" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Thumb-Down-Dislike-Hand-256.png" alt="dislike icon" />
+        Users(s) with the <b>SMALLEST</b> amount of used Electricity:
+    </p>
+    <table class="table table-condensed" style="margin-left:10%;">
+        <tbody>
+            @foreach (var asset in Model.userElectricitySmall)
+            {
+                <tr class="assetRow">
+                    <td width="50%">@asset.Key</td>
+                    <td width="30%">@asset.Value kWh.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    <div id="more-e-usersTable" style="display:none;">
+        <table class="table table-condensed" style="margin-left:10%;">
+            <p style="text-align:center; font-weight:600;">Sorted table of users by the amount of used electricity</p>
+            <tbody>
+                @foreach (var asset in Model.userElectricityAll)
+                {
+                    <tr class="assetRow">
+                        <td width="50%">@asset.Key</td>
+                        <td width="30%">@asset.Value kWh.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p class="btn btn-warning show-more-btn" id="more-e-users">Show more</p>
+</div>
+<script>
+    // var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    document.getElementById('more-w-users').onclick = function () {
+        if (this.innerHTML === 'Show more') {
+            document.getElementById('more-w-usersTable').style.display = 'block';
+            this.innerHTML = 'Show less';
+        } else {
+            document.getElementById('more-w-usersTable').style.display = 'none';
+            this.innerHTML = 'Show more';
+        }
+    }
+
+    document.getElementById('more-g-users').onclick = function () {
+        if (this.innerHTML === 'Show more') {
+            document.getElementById('more-g-usersTable').style.display = 'block';
+            this.innerHTML = 'Show less';
+        } else {
+            document.getElementById('more-g-usersTable').style.display = 'none';
+            this.innerHTML = 'Show more';
+        }
+    }
+
+    document.getElementById('more-e-users').onclick = function () {
+        if (this.innerHTML === 'Show more') {
+            document.getElementById('more-e-usersTable').style.display = 'block';
+            this.innerHTML = 'Show less';
+        } else {
+            document.getElementById('more-e-usersTable').style.display = 'none';
+            this.innerHTML = 'Show more';
+        }
+    }
+
+    document.getElementById('more-workers').onclick = function () {
+        if (this.innerHTML === 'Show more') {
+            document.getElementById('more-workersTable').style.display = 'block';
+            this.innerHTML = 'Show less';
+        } else {
+            document.getElementById('more-workersTable').style.display = 'none';
+            this.innerHTML = 'Show more';
+        }
+    }
+    var id = document.getElementById('chartinfo');
+    var config = {
+        type: 'line',
+        data: {
+            labels: [id.childNodes[1].innerHTML, id.childNodes[9].innerHTML, id.childNodes[17].innerHTML, id.childNodes[25].innerHTML, id.childNodes[33].innerHTML],
+            datasets: [{
+                label: 'GAS',
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
+                data: [
+                    id.childNodes[3].innerHTML,
+                    id.childNodes[11].innerHTML,
+                    id.childNodes[19].innerHTML,
+                    id.childNodes[27].innerHTML,
+                    id.childNodes[35].innerHTML
+                ],
+                fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                //text: 'Chart.js Line Chart'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config2 = {
+        type: 'line',
+        data: {
+            labels: [id.childNodes[1].innerHTML, id.childNodes[9].innerHTML, id.childNodes[17].innerHTML, id.childNodes[25].innerHTML, id.childNodes[33].innerHTML],
+            datasets: [ {
+                label: 'ELECTRICITY',
+                backgroundColor: window.chartColors.yellow,
+                borderColor: window.chartColors.yellow,
+                data: [
+                    id.childNodes[5].innerHTML,
+                    id.childNodes[13].innerHTML,
+                    id.childNodes[21].innerHTML,
+                    id.childNodes[29].innerHTML,
+                    id.childNodes[37].innerHTML
+                ],
+                fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                //text: 'Chart.js Line Chart'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config3 = {
+        type: 'line',
+        data: {
+            labels: [id.childNodes[1].innerHTML, id.childNodes[9].innerHTML, id.childNodes[17].innerHTML, id.childNodes[25].innerHTML, id.childNodes[33].innerHTML],
+            datasets: [ {
+                label: 'WATER',
+                fill: false,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: [
+                    id.childNodes[7].innerHTML,
+                    id.childNodes[15].innerHTML,
+                    id.childNodes[23].innerHTML,
+                    id.childNodes[31].innerHTML,
+                    id.childNodes[39].innerHTML
+                ],
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                //text: 'Chart.js Line Chart'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        }
+    };
+
+
+        var ctx = document.getElementById('canvas').getContext('2d');
+    window.myLine = new Chart(ctx, config);
+
+    var ctx2 = document.getElementById('canvas2').getContext('2d');
+    window.myLine = new Chart(ctx2, config2);
+
+    var ctx3 = document.getElementById('canvas3').getContext('2d');
+    window.myLine = new Chart(ctx3, config3);
+
+</script>

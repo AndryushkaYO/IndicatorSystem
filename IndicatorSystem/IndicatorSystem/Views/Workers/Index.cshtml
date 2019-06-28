@@ -1,0 +1,37 @@
+﻿@model IndicatorSystem.Models.Worker.WorkerModel
+
+<div id="assets">
+    <div class="header">
+        <h3>Workers Table</h3>
+        <div class="buttons-nav">
+            <a id="addnew" class="btn btn-danger" asp-area="" asp-controller="" asp-action=""><span>+</span> Add New Item</a>
+           
+        </div>
+
+    </div>
+    <div id="assetsTable">
+        <table class="table table-condensed" id="WorkersTableIndex">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Phone number</th>
+                    <th>Type ID</th>
+                    <th>Unit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var asset in Model.Assets)
+                {
+                <tr class="assetRow">
+                    <td>@asset.workerFullName</td>
+                    <td>@asset.workerPhone</td>
+                    <td>@asset.typeId</td>
+                    <td>@asset.unit</td>
+                    <td> <img src="~/images/delete.png" alt="delete" /></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

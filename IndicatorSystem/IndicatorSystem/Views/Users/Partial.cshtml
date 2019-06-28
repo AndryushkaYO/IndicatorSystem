@@ -1,0 +1,28 @@
+﻿@model IndicatorSystem.Models.User.UsersModel
+<table class="table table-condensed" id="UsersTableIndex">
+    <thead>
+        <tr>
+            <th>Personal Account</th>
+            <th>Full Name</th>
+            <th>BirthDate</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var asset in Model.Assets)
+        {
+            <tr class="assetRow">
+                <td>@asset.UsersId </td>
+                <td>@asset.UsersFullName </td>
+                <td>@asset.UsersBirthDay </td>
+                <td>@asset.Email</td>
+                <td>@asset.Password</td>
+                <td> <img src="~/images/edit.png" alt="edit" /></td>
+                <td> <a asp-route-id="@asset.UsersId" asp-controller="Users" asp-action="Delete"><img src="~/images/delete.png" alt="delete" /></a></td>
+            </tr>
+        }
+</tbody>
+</table>
