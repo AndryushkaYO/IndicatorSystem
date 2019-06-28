@@ -1,0 +1,132 @@
+﻿@model IndicatorSystem.Models.User.UsersModel
+<div id="assets">
+    <h3>Users Table</h3>
+    <div class="header">
+        <div class="sort-section">
+            <p>Sort by </p>
+            <select name="select" >
+                <option value="ID" selected>ID</option>
+                <option value="Name">Name</option>
+                <option value="BirthDate">BirthDate</option>
+                <option value="Email">Email</option>
+            </select>
+        </div>
+        <div class="buttons-nav">
+            <a id="addnew" class="btn btn-danger"><span>+</span> Add New User</a>
+
+        </div>
+    </div>
+
+    <div id="addNewItem">
+        <div class="borderC">
+            <input class="form-control" type="text" name="id" value="" placeholder="User's ID" />
+            <input class="form-control" type="text" name="fullname" value="" placeholder="User's FullName" />
+            <input class="form-control" type="date" name="birthdate" value="" placeholder="User's Birth Date" />
+            <input class="form-control" type="email" name="email" value="" placeholder="User's Email" />
+            <input class="form-control" type="text" name="password" value="" placeholder="User's Password" />
+            <a id="addSuccess"> <img src="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/plus-square-o-256.png" alt="add" /> </a>
+        </div>
+
+    </div>
+    <div id="usersTable">
+        <!-- Html.Partial("Partial"); -->
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var i = document.getElementById('assets');
+    let addNewBtn = document.getElementById('addnew');
+    addNewBtn.onclick = function () {
+        if (addNewBtn.childNodes[0].innerHTML == '+') {
+            addNewBtn.childNodes[0].innerHTML = '-';
+            /*var addHTML = ' <div class = "borderC">'+
+                '<input class="form-control" type = "text" name = "id" value = "" placeholder = "User\'s ID" /> '+
+                   ' <input class="form-control" type = "text" name = "fullname" value = "" placeholder = "User\'s FullName" />'+
+                       ' <input class="form-control" type="date" name="birthdate" value="" placeholder="User\'s Birth Date" />'+
+                        '<input class="form-control" type="email" name="email" value="" placeholder="User\'s Email" />'+
+                        '<input class="form-control" type="text" name="password" value="" placeholder="User\'s Password" />'+
+                '<a id="addSuccess"> <img src="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/plus-square-o-256.png" alt="add" /> </a></div>';
+           */
+            document.getElementById('assets').childNodes[5].style.display = 'block';
+
+        } else {
+            addNewBtn.childNodes[0].innerHTML = '+';
+            document.getElementById('assets').childNodes[5].style.display = 'none';
+        }
+    }
+
+
+
+
+
+    var id = '#' + document.getElementById('assets').childNodes[7].id;
+    window.onload = function () {
+        GetStudents("");
+        document.getElementById('assets').childNodes[5].style.display = 'none';
+    }
+
+    $('select').on('change', function () {
+        var value = { value: this.value };
+
+        GetStudents(value);
+    });
+    function GetStudents(filters) {
+        $(id).html('<img src="https://i.gifer.com/7plQ.gif" class="center" />');
+        $.ajax({
+            url: '/Users/Partial',
+            type: 'POST',
+            cache: false,
+            async: true,
+            dataType: "html",
+            beforeSend: function () {
+            },
+            data: filters
+        })
+            .done(function (result) {
+                $(id).html(result);
+            }).fail(function (xhr) {
+                console.log('error : ' + xhr.status + ' - ' + xhr.statusText + ' - ' + xhr.responseText);
+            });
+
+    }
+
+
+    let addSuc = document.getElementById('addSuccess');
+    addSuc.onclick = function () {
+        let re = addSuc.parentNode.childNodes[1].value + '*'
+            + addSuc.parentNode.childNodes[3].value + '*'
+            + addSuc.parentNode.childNodes[5].value + '*'
+            + addSuc.parentNode.childNodes[7].value + '*'
+            + addSuc.parentNode.childNodes[9].value;
+
+        var value = { value: re };
+        AddNewUser(value);
+        addSuc.parentNode.childNodes[1].value = '';
+        addSuc.parentNode.childNodes[3].value = '';
+        addSuc.parentNode.childNodes[5].value = '';
+        addSuc.parentNode.childNodes[7].value = '';
+        addSuc.parentNode.childNodes[9].value = '';
+    };
+    function AddNewUser(filters) {
+        $(id).html('<img src="https://i.gifer.com/7plQ.gif" class="center" alt="Alternate Text" />');
+        $.ajax({
+            url: '/Users/Add',
+            type: 'POST',
+            cache: false,
+            async: true,
+            dataType: "html",
+            beforeSend: function () {
+                // $(id).html('<img src="~/images/loading.gif" alt="Alternate Text" />');
+            },
+            data: filters
+        })
+            .done(function (result) {
+                $(id).html(result);
+                alertify.success('New user added succesfully!');
+            }).fail(function (xhr) {
+                console.log('error : ' + xhr.status + ' - ' + xhr.statusText + ' - ' + xhr.responseText);
+            });
+
+    }
+</script>

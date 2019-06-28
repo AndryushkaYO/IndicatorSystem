@@ -1,0 +1,50 @@
+﻿@model IndicatorSystem.Models.Catalog.CatalogIndexModel
+
+<div id="assets">
+    <h3>Indicator Catalog</h3>
+    <div class="header">
+        <div class="sort-section">
+            <p>Sort by </p>
+            <select name="select">
+                <option value="ID" selected>ID</option>
+                <option value="Name">Name</option>
+                <option value="WorkersName">Worker's name</option>
+                <option value="Unit">Unit</option>
+            </select>
+        </div>
+        <div class="buttons-nav">
+            <a id="infographics" class="btn btn-info" asp-area="" asp-controller="Catalog" asp-action="Infographics">Infographics</a>
+            <a id="refresh" class="btn btn-success " asp-area="" asp-controller="SMS" asp-action="Refresh">Refresh</a>
+        </div>
+
+    </div>
+    <div id="assetsTable">
+        <table class="table table-condensed" id="CatalogTableIndex">
+            <thead>
+                <tr>
+                    <th>Personal Account</th>
+                    <th>Client's Full Name</th>
+                    <th>Amount</th>
+                    <th>Unit</th>
+                    <th>Date</th>
+                    <th>Worker's Full Name</th>
+                    <th>Worker's Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var asset in Model.Assets)
+                {
+                    <tr class="assetRow">
+                        <td>@asset.UsersId</td>
+                        <td>@asset.UsersFullName</td>
+                        <td>@asset.amount</td>
+                        <td>@asset.unit</td>
+                        <td>@asset.date</td>
+                        <td>@asset.workerFullName</td>
+                        <td>@asset.workerPhone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

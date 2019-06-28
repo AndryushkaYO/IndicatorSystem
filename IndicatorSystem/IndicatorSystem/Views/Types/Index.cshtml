@@ -1,0 +1,35 @@
+﻿@model IndicatorSystem.Models.Type.TypeModel
+
+<div id="assets">
+    <div class="header">
+        <h3>Types Table</h3>
+        <div class="buttons-nav">
+            <a id="addnew" class="btn btn-danger" asp-area="" asp-controller="" asp-action=""><span>+</span> Add New Item</a>
+            
+        </div>
+
+    </div>
+    <div id="assetsTable">
+        <table class="table table-condensed" id="TypesTableIndex">
+            <thead>
+                <tr>
+                    <th>Type ID</th>
+                    <th>Unit name</th>
+                    <th>Limit amount</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var asset in Model.Assets)
+                {
+                <tr class="assetRow">
+                    <td>@asset.typeId </td>
+                    <td>@asset.unit </td>
+                    <td>@asset.limit </td>
+                    <td> <img src="~/images/delete.png" alt="delete" /></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

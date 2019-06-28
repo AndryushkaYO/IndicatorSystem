@@ -1,0 +1,186 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+.buttons-nav-date{
+    margin-left:14%;
+    padding-top: 2%;
+    padding-bottom:2%;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: space-between;
+    width:74%;
+}
+
+#run{
+    width:20%;
+    height:40px;
+    line-height:25px;
+    margin-left:40%;
+}
+.users-info p{
+   /* text-transform:uppercase;*/
+}
+.users-info .col-md-4{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    font-weight:600;
+}
+canvas{
+    margin-left:10%;
+}
+.aver {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 15px;
+    text-align:center;
+    line-height:70px;
+    font-size: 20px;
+}
+.select-info{
+    display: flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: center;
+    padding:2vh 0;
+}
+.select-info div{
+    padding:0 2vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+}
+    .select-info div select{
+        width: 20vw;
+        margin: 0 1vw;
+    }
+.show-more-btn {
+    text-align: center;
+    display: block;
+    width: 10vw;
+    margin-left:auto;
+    margin-right:auto;
+}
+.like{
+    width:30px;
+    vertical-align:bottom;
+}
+.dislike {
+    width: 30px;
+    vertical-align: top;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+    .buttons-nav-date a, .buttons-nav-date input{
+        margin: 0 1.5vw;
+    }
+    #addnew span {
+        font-weight: 800;
+    }
+.workers-info{
+    padding:1% 5%;
+}
+.users-info {
+    padding: 1% 5%;
+}
+#assets #addNewItem .borderC {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.8vh 0;
+    margin: 1.7vh 0;
+    border: 1px #ccc solid;
+    border-radius: 10px;
+}
+    #assets #addNewItem input {
+        margin: 0 1vw;
+    }
+    #assets #addNewItem a img {
+        width: 3vw;
+        margin: 0 2vw;
+    }
+    .header {
+        margin: 3vh 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header div.buttons-nav {
+        height: 8vh;        
+        display: flex;
+        align-items: center;
+    }
+    
+    .header .buttons-nav a {
+        padding:  1.5vh 1.5vw;       
+        font-size: 16px;
+        color: #fff;
+        margin-left:2vw;
+    }
+.sort-section{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+
+}
+.sort-section p{
+    margin:0 2vw;
+    font-size:16px;
+    
+}
+tbody td img {
+    width: 2vw;
+}
+    tbody td img:hover, #assets #addNewItem a img:hover {
+        cursor: pointer;
+        opacity: 0.7;
+    }
+
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+
+   
+}
+
+
